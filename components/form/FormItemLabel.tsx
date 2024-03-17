@@ -84,7 +84,7 @@ const FormItemLabel: React.FC<FormItemLabelProps & { required?: boolean; prefixC
     },
   );
 
-  let labelChildren = label;
+  let labelChildren: React.ReactNode = label;
 
   // Keep label is original where there should have no colon
   const computedColon = colon === true || (contextColon !== false && colon !== false);
@@ -100,9 +100,18 @@ const FormItemLabel: React.FC<FormItemLabelProps & { required?: boolean; prefixC
 
   if (tooltipProps) {
     const { icon = <QuestionCircleOutlined />, ...restTooltipProps } = tooltipProps;
-    const tooltipNode = (
+    const tooltipNode: React.ReactNode = (
       <Tooltip {...restTooltipProps}>
-        {React.cloneElement(icon, { className: `${prefixCls}-item-tooltip`, title: '' })}
+        {React.cloneElement(icon, {
+          className: `${prefixCls}-item-tooltip`,
+          title: '',
+          onClick: (e: React.MouseEvent) => {
+            // Prevent label behavior in tooltip icon
+            // https://github.com/ant-design/ant-design/issues/46154
+            e.preventDefault();
+          },
+          tabIndex: null,
+        })}
       </Tooltip>
     );
 
@@ -114,7 +123,13 @@ const FormItemLabel: React.FC<FormItemLabelProps & { required?: boolean; prefixC
     );
   }
 
-  if (requiredMark === 'optional' && !required) {
+  // Required Mark
+  const isOptionalMark = requiredMark === 'optional';
+  const isRenderMark = typeof requiredMark === 'function';
+
+  if (isRenderMark) {
+    labelChildren = requiredMark(labelChildren, { required: !!required });
+  } else if (isOptionalMark && !required) {
     labelChildren = (
       <>
         {labelChildren}
@@ -127,7 +142,7 @@ const FormItemLabel: React.FC<FormItemLabelProps & { required?: boolean; prefixC
 
   const labelClassName = classNames({
     [`${prefixCls}-item-required`]: required,
-    [`${prefixCls}-item-required-mark-optional`]: requiredMark === 'optional',
+    [`${prefixCls}-item-required-mark-optional`]: isOptionalMark || isRenderMark,
     [`${prefixCls}-item-no-colon`]: !computedColon,
   });
 

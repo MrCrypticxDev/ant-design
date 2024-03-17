@@ -2,8 +2,8 @@
 category: Components
 group: Data Entry
 title: Radio
-cover: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*M-YKTJnWM2kAAAAAAAAAAAAADrJ8AQ/original
-coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*a9roS6DHFIcAAAAAAAAAAAAADrJ8AQ/original
+cover: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*mrPVRope68wAAAAAAAAAAAAADrJ8AQ/original
+coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*xPfTSphsiA0AAAAAAAAAAAAADrJ8AQ/original
 demo:
   cols: 2
 ---
@@ -29,9 +29,12 @@ Radio.
 <code src="./demo/radiobutton-solid.tsx">Solid radio button</code>
 <code src="./demo/badge.tsx" debug>Badge style</code>
 <code src="./demo/wireframe.tsx" debug>Wireframe</code>
+<code src="./demo/component-token.tsx" debug>Component Token</code>
 <!-- prettier-ignore-end -->
 
 ## API
+
+Common props ref：[Common props](/docs/react/common-props)
 
 ### Radio/Radio.Button
 

@@ -1,12 +1,10 @@
 import React from 'react';
-import { Col, Row, Tooltip } from 'antd';
-import { css } from '@emotion/react';
+import { createStyles } from 'antd-style';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import useSiteToken from '../../../hooks/useSiteToken';
+import { Col, Row, Tooltip } from 'antd';
 import useLocale from '../../../hooks/useLocale';
 
-const useStyle = () => {
-  const { token } = useSiteToken();
+const useStyle = createStyles(({ token, css }) => {
   const { boxShadowSecondary } = token;
 
   return {
@@ -17,13 +15,14 @@ const useStyle = () => {
       height: 100%;
       color: inherit;
       list-style: none;
-      border: 1px solid #e6e6e6;
+      border: 1px solid ${token.colorSplit};
       border-radius: 2px;
       cursor: pointer;
       transition: box-shadow 0.3s;
 
       &:hover {
         box-shadow: ${boxShadowSecondary};
+        color: inherit;
       }
     `,
     image: css`
@@ -49,18 +48,18 @@ const useStyle = () => {
     `,
     title: css`
       margin: 16px 20px 8px;
-      color: #0d1a26;
+      opacity: 0.85;
       font-size: 20px;
       line-height: 28px;
     `,
     description: css`
       margin: 0 20px 20px;
-      color: #697b8c;
+      opacity: 0.65;
       font-size: 14px;
       line-height: 22px;
     `,
   };
-};
+});
 
 export type Resource = {
   title: string;
@@ -78,7 +77,7 @@ const locales = {
   },
   en: {
     official: 'Official',
-    thirdPart: 'Third Part',
+    thirdPart: 'Third Party',
     thirdPartDesc: 'Unofficial product, please take care confirm availability',
   },
 };
@@ -88,7 +87,7 @@ export type ResourceCardProps = {
 };
 
 const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
-  const styles = useStyle();
+  const { styles } = useStyle();
   const [locale] = useLocale(locales);
 
   const { title: titleStr, description, cover, src, official } = resource;
@@ -104,25 +103,25 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
 
   return (
     <Col xs={24} sm={12} md={8} lg={6} style={{ padding: 12 }}>
-      <a css={styles.card} target="_blank" href={src} rel="noreferrer">
+      <a className={styles.card} target="_blank" href={src} rel="noreferrer">
         <img
-          css={styles.image}
+          className={styles.image}
           src={cover}
           alt={title}
           style={coverColor ? { backgroundColor: coverColor } : {}}
         />
         {official ? (
-          <div css={styles.badge}>{locale.official}</div>
+          <div className={styles.badge}>{locale.official}</div>
         ) : (
           <Tooltip title={locale.thirdPartDesc}>
-            <div css={styles.badge}>
+            <div className={styles.badge}>
               <ExclamationCircleOutlined />
               {locale.thirdPart}
             </div>
           </Tooltip>
         )}
-        <p css={styles?.title}>{title}</p>
-        <p css={styles.description}>{description}</p>
+        <p className={styles?.title}>{title}</p>
+        <p className={styles.description}>{description}</p>
       </a>
     </Col>
   );

@@ -67,13 +67,13 @@ const items: MenuProps['items'] = [
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(true);
   const {
-    token: { colorBgContainer },
+    token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
+        <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
           mode="inline"
@@ -101,6 +101,7 @@ const App: React.FC = () => {
             padding: 24,
             minHeight: 280,
             background: colorBgContainer,
+            borderRadius: borderRadiusLG,
           }}
         >
           Content

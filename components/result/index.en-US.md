@@ -23,8 +23,11 @@ Use when important operations need to inform the user to process the results and
 <code src="./demo/500.tsx">500</code>
 <code src="./demo/error.tsx">Error</code>
 <code src="./demo/customIcon.tsx">Custom icon</code>
+<code src="./demo/component-token.tsx" debug>Component Token</code>
 
 ## API
+
+Common props ref：[Common props](/docs/react/common-props)
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
